@@ -1,20 +1,8 @@
 
 from flask import Flask, render_template, request, flash, redirect, url_for  
-# from pjt2_tds__pjt1_helper_functions import * 
 from helper_function_gmlp import * 
-# from pjt3_tcc_helper_functions import * 
-# from flask_sqlalchemy import SQLAlchemy
 import os 
 from werkzeug.utils import secure_filename 
-# from time import time 
-# from datetime import datetime 
-# import pandas as pd 
-
-# import pandas as pd 
-# import joblib 
-
-# project_1_trained_models trained_model
-
 from sklearn.model_selection import train_test_split 
 
 app = Flask(__name__)
@@ -133,12 +121,7 @@ def pjt1_gmlp():
 
      return render_template('pjt1_gmlp.html', json_data_ = json_data, feature_column_=feature_columns_, predicted_result_=predicted_results, accuracy_scores_=accuracy_scores, model_types_=model_types)      
 
-
-
-################################################################################################################################################
-
-
 if __name__ == '__main__':  
-    app.run(debug=True)
+    app.run()
 
 

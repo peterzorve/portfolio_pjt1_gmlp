@@ -9,17 +9,6 @@ from sklearn.tree           import DecisionTreeClassifier
 from sklearn.ensemble       import RandomForestClassifier 
 import joblib 
 
-
-# import nltk 
-# import wordcloud 
-
-#################################################################################################
-
-# path_1 = "data/diabetes_data.csv"
-# path_2 = "data/dummy_data_1.csv"
-# path_3 = "data/dummy_data_2.csv"
-# path_4 = "data/seeds.csv"
-
 #################################################################################################
 
 def clean_data_processing(path):
@@ -33,23 +22,13 @@ def clean_data_processing(path):
     return data_cleaned
 
 data_cleaned = clean_data_processing("data_uploaded/dummy_data.csv") 
-# data_original = data_cleaned.copy()
-# print(data_cleaned.head(6))
 
 #################################################################################################
 
 def all_columns(data):
     return list(data.columns)
 
-
-
-# print(all_columns(data=data_cleaned))
-
 #################################################################################################
-
-
-# list_1 = ['target', 'game', 'sex', 'name'] 
-# list_2 = ['sex', 'age', 'address', 'salary', 'transport', 'target']
 
 def drop_columns_check(list_1, list_2):
     for i in list_1:
@@ -60,21 +39,6 @@ def drop_columns_check(list_1, list_2):
             break 
     return result
 
-
-# print(drop_columns_check(list_1, list_2)) 
-
-
-#################################################################################################
-
-
-# if ['target', 'sex'] in all_columns(data=data_cleaned):
-#     print("successful")
-
-# else: 
-#     print('Not successful')
-
-
-
 #################################################################################################
 
 def features_columns(data, target):
@@ -84,7 +48,6 @@ def features_columns(data, target):
     return list(feature_columns)
 
 feature_columns_ = features_columns(data=data_cleaned, target='target')
-# print(feature_columns_)
 
 #################################################################################################
 
@@ -102,8 +65,6 @@ def json_dictionary(feature_columns, data):
     return data_dictionary, data_dictionary_encoded
 
 json_data, json_data_encoded = json_dictionary(feature_columns=feature_columns_, data=data_cleaned)
-# print(json_data)
-# print(json_data_encoded)
 
 #################################################################################################
 
@@ -113,12 +74,6 @@ def save_json_data(file_to_save):
     filename.write(json_)
     filename.close()
     return 
-
-
-
-
-
-
 
 save_json_data(file_to_save=json_data) 
 
@@ -252,9 +207,6 @@ def save_target_name(target):
         file.write( target ) 
         return 
 
-# save_target_name('outcome')
-# project_1_trained_models trained_model
-
 #################################################################################################
 
 def read_saved_target_name():
@@ -263,20 +215,9 @@ def read_saved_target_name():
             target_name = line.split("'")[0]
     return str(target_name)
 
-# print(type(read_saved_target_name()))
-
 #################################################################################################
 
 def drop_columns_finally(columns, data_cleaned):
     return data_cleaned.drop(columns, axis=1)
 
 #################################################################################################
-
-# data_cleaned = clean_data_processing(path_3) 
-# print(data_cleaned.head(3))
-
-# print()
-# print()
-
-# data_cleaned = drop_columns_finally(['sex', 'age', 'address'], data_cleaned) 
-# print(data_cleaned.head(3))
