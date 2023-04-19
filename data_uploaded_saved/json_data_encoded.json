@@ -1,0 +1,1 @@
+{"sex": {"M": 0, "F": 1}, "address": {"mikkeli": 0, "joensuu": 1, "helsinki": 2, "kumasi": 3, "accra": 4}, "transport": {"car": 0, "train": 1, "bus": 2, "bike": 3}}

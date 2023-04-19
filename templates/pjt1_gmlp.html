@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+<section class="text-dark p-2  text-center text-sm-start"> 
+    <div class="container bg-light">
+        <h4 class="text-dark bold text-center font_type_cambria"> Generalized Machine Learning Predictor (GMLP)   </h4>
+        <!-- <h4 class="text-dark bold text-center"> Upload a data (.csv or excel), enter the target you want to predict,  and start making prediction </h4> -->
+        <p class="text-center font_type_courier"> Upload a data (.csv or excel), enter the target you want to predict,  and start making prediction          </p> 
+
+    </div>
+</section>
+
+
+
+
+
+<section id="product" class="text-light p-3  text-center text-sm-start">
+    <div class="container bg-dark border_line_libraries_con">
+        <div class="row align-items-center justify-content-between">
+            <form action="/" method="POST", enctype="multipart/form-data">
+                <div class="container  p-1">
+                    <div class="row align-items-start g-1 column_gab">
+                        <div class="col    bg-dark text-dark p-1 border_line_libraries">      <input type="file"  accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"  class="form-control font_type_courier"  placeholder="File"     name="csv_file" required>  </div> 
+                        <div class="col    bg-dark text-dark p-1 border_line_libraries">      <input type="text"    class="form-control font_type_courier"  placeholder="Colums to drop"   name="drop_">  </div>
+                        <div class="col    bg-dark text-dark p-1 border_line_libraries">      <input type="text"    class="form-control font_type_courier"  placeholder="Target"   name="target_" required>  </div>
+                        <div class="col    bg-dark text-dark p-1 border_line_libraries">      <button type="submit" class="btn btn-warning font_type_courier" name="submit_button" value="start_training"> Upload</button>     </div>
+                    </div> 
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+    {% if wrong_format_ | length > 0 %}
+        <section  class="text-dark p-3  text-center text-sm-start">
+            <div class="container p-1">
+                <div class="accordion accordion-flush  border_line_input1" >
+                        <section class="text-dark p-1 text-center text-sm-start"> 
+                            <div class="container col-10 bg-danger border_line_input">
+                                <h6 class="text-light bold text-center font_type_courier p-1"> {{ wrong_format_ }} </h6>
+                            </div>
+                        </section>                       
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+
+
+
+
+
+
+
+
+
+<section  class="text-dark p-3  text-center text-sm-start">
+    <div class="container p-2   ">
+        <div class="accordion accordion-flush " >
+            {% if feature_column_ | length > 0 %}
+                <form action="/" method="POST", enctype="multipart/form-data">
+                        {% for feature in feature_column_ %}
+                                <div class="container  p-1 justify-content-center col-lg-8">
+                                    <div class="row align-items-start g-1 column_gab">
+                                        <div class="col  bg-light text-dark font_type_courier p-2 h6 align_right border_line_input1 one_line">  {{ feature }}      </div> 
+
+                                        <div class="col  text-dark p-1"> 
+                                            
+                                            {% if feature in  json_data_ %}
+                                                <select id="" class="col-12" name="{{ feature }}"> 
+                                                    {% for option in json_data_[feature] %} 
+                                                        <option class="border_line_input font_type_courier one_line" value="{{ option }}"> {{ option }} </option>
+                                                    {% endfor %}
+                                                </select> 
+                                            
+                                                {% else %}
+                                                <input type="number" step="0.000000001" class="form-control font_type_courier border_line_input" placeholder="Enter {{ feature  }}"   name="{{ feature }}" required> 
+                                            {% endif %} 
+                                            
+                                        </div>
+                                    </div>
+                                </div> 
+                        {% endfor %}                         
+                            <div class="container">
+                                <div class="row g-1 d-flex justify-content-center" >
+                                    <div class="col-sm-6 col-md-2 col-lg-1">    
+                                        <div class="container ">
+                                            <div class="row d-flex justify-content-center">
+                                                <div class="col">  <button type="submit"    class="btn btn-warning justify-content-center one_line border_line_input font_type_courier" name="submit_button" value="start_predicting"> Predict </button>  </div>
+                                            </div>
+                                        </div>              
+                                    </div> 
+                                </div>
+                            </div>
+                </form>
+            {% endif %}
+
+          </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+<section  class="text-dark p-3  text-center text-sm-start">
+    <div class="container p-1">
+        <div class="accordion accordion-flush bg_image_8 border_line_input" >
+
+            {% if predicted_result_ | length > 0 %}
+
+                <section class="text-dark p-1 text-center text-sm-start"> 
+                    <div class="container col-6 bg-primary border_line_input">
+                        <h4 class="text-light bold text-center font_type_cambria p-1"> Predicted Results </h4>
+                    </div>
+                </section>
+
+                {% for  i in range(5) %}
+                    <div class="container  p-1 justify-content-center col-lg-8">
+                        <div class="row align-items-start g-1 column_gab">
+                            <div class="col  bg-light text-dark font_type_courier p-2 h6 align_right border_line_input one_line"> {{ model_types_[i] }} </div> 
+                            <div class="col  bg-light text-dark font_type_courier p-2 h6 align_left  border_line_input one_line"> {{ predicted_result_[i] }}      </div> 
+                        </div>
+                    </div> 
+                {% endfor %}                         
+            {% endif %}
+
+          </div>
+    </div>
+</section>
+
+
+{% endblock %}
